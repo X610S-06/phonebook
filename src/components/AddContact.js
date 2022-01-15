@@ -28,27 +28,35 @@ const AddContact = ({ onSubmit }) => {
 	}
 
 	return (
-		<>
-			<form onSubmit={handleSubmit}>
-				<label>First Name</label>
+		<div>
+			<form onSubmit={handleSubmit} className='py-2 mx-4'>
+				<label>First Name : </label>
 				<input
+					className='my-4 py-2 rounded-lg'
 					type='text'
 					name='firstName'
 					onChange={handleChange}
 					value={number.firstName}
 				></input>
-				<label>Last Name</label>
+				<label>Last Name : </label>
 				<input
+					className='my-4 py-2 rounded-lg'
 					type='text'
 					name='lastName'
 					onChange={handleChange}
 					value={number.lastName}
 				></input>
-				<label>Phone</label>
-				<input type='text' name='phone' onChange={handleChange} value={number.phone}></input>
-				<button className='self-end'>Submit</button>
+				<label>Phone :</label>
+				<input
+					className='my-4 py-2 rounded-lg'
+					type='text'
+					name='phone'
+					onChange={handleChange}
+					value={number.phone}
+				></input>
+				<button className='mx-12 mt-8'>Submit</button>
 			</form>
-		</>
+		</div>
 	)
 }
 
