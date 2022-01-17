@@ -1,24 +1,27 @@
 import React, { useState } from 'react'
 
 const Contacts = ({ numbers }) => {
-	
+
 	const [search, setSearch] = useState('')
 	const [filters, setFilters] = useState([])
 	
-
+	//form input change handling
 	const handleSearch = (e) => {
 		e.preventDefault()
 		const data = e.target.value
 		setSearch(data)
 	}
 
+	//reset filter handling
 	const handleFilter = (e) => {
 		e.preventDefault()
 		setFilters([])
 	}
 
+	//form submit handling
 	const handleSubmit = (e) => {
 		e.preventDefault()
+		let arr = []
 		numbers.map((number) => {
 			if (!search) {
 				setFilters([])
@@ -27,15 +30,17 @@ const Contacts = ({ numbers }) => {
 				number.lastName.toLowerCase().includes(search.toLowerCase()) ||
 				number.phone.includes(search)
 			) {
-				setFilters([])
+				arr.push(number)
 			}
+			setFilters([...arr])
 		})
 	}
-	console.log(filters)
+
+	//Input form for search
 	return (
 		<div className='flex flex-col items-center p-2 m-4'>
 			<div className='flex flex-col rounded text-black'>
-				<form onSubmit={handleSubmit} className='flex flex-row w-80'>
+				<form onSubmit={handleSubmit} className='flex flex-row border-2 rounded w-80'>
 					<input
 						type='text'
 						className='px-4 w-full'
@@ -43,7 +48,7 @@ const Contacts = ({ numbers }) => {
 						name='search'
 						autoComplete='off'
 						onChange={handleSearch}
-						onBlur={handleFilter}
+						onFocus={handleFilter}
 					></input>
 					<button className='flex flex-row w-15 h-10 items-center justify-center rounded'>
 						<svg className='w-6 h-6' fill='currentColor' viewBox='0 0 24 24'>
@@ -51,14 +56,14 @@ const Contacts = ({ numbers }) => {
 						</svg>
 					</button>
 				</form>
+
+				{/* display filtered results */}
 				<div className='flex flex-row p-4'>
 					<table className='flex flex-col text-white'>
 						<tbody>
 							{filters.map((filter) => (
 								<tr key={filter.phone} className='flex flex-row '>
 									<td className='p-1'>{filter.firstName}</td>
-									<td className='p-1'>{filter.lastName}</td>
-									<td className='p-1'>{filter.phone}</td>
 								</tr>
 							))}
 						</tbody>
@@ -66,19 +71,20 @@ const Contacts = ({ numbers }) => {
 				</div>
 			</div>
 
+			{/* display contacts	 */}
 			<div className='flex flex-row p-8'>
 				<table className='flex flex-col'>
 					<thead>
 						<tr className='flex flex-row justify-center'>
-							<th className='justify-center p-2 border-2'>Contacts List</th>
+							<th className='justify-center p-2 m-3 border-2'>CONTACT LIST</th>
 						</tr>
 					</thead>
 					<tbody>
 						{numbers.map((number) => (
 							<tr key={number.phone} className='flex flex-row '>
-								<td className='p-2'>{number.firstName}</td>
-								<td className='p-2'>{number.lastName}</td>
-								<td className='p-2'>{number.phone}</td>
+								<td className='p-3'>{number.firstName}</td>
+								<td className='p-3'>{number.lastName}</td>
+								<td className='p-3'>{number.phone}</td>
 							</tr>
 						))}
 					</tbody>

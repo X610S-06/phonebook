@@ -8,15 +8,27 @@ const AddContact = ({ onSubmit }) => {
 		phone: '',
 	})
 
+	//form input change handling
 	const handleChange = (e) => {
 		e.preventDefault()
+		const t = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/
 		const { name, value } = e.target
+		//validating for phone number
+		if(name==='phone'){
+		 if(t.test(value)){
+				setNumber({
+					...number,
+					[name]: value,
+				})
+			}
+		} else {
 		setNumber({
 			...number,
 			[name]: value,
 		})
+		}	
 	}
-
+	//form submit handling
 	const handleSubmit = (e) => {
 		e.preventDefault()
 		onSubmit(number)
@@ -27,9 +39,10 @@ const AddContact = ({ onSubmit }) => {
 		})
 	}
 
+	//add contact input form
 	return (
 		<div className='flex flex-col items-center'>
-			<form onSubmit={handleSubmit} className='p2 m-2'>
+			<form onSubmit={handleSubmit} className='p-2 m-2'>
 				<label>First Name : </label>
 				<input
 					className='my-4 py-2 px-4 rounded-lg text-black'
@@ -51,9 +64,11 @@ const AddContact = ({ onSubmit }) => {
 				<label>Phone Number : </label>
 				<input
 					className='my-4 py-2 px-4 rounded-lg text-black'
-					type='text'
+					type='tel'
 					name='phone'
-					placeholder='number...'
+					maxLength={10}
+					pattern='^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$'
+					placeholder='1234567890'
 					onChange={handleChange}
 					value={number.phone}
 				></input>
