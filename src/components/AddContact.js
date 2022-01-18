@@ -11,22 +11,12 @@ const AddContact = ({ onSubmit }) => {
 	//form input change handling
 	const handleChange = (e) => {
 		e.preventDefault()
-		const t = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/
 		const { name, value } = e.target
-		//validating for phone number
-		if(name==='phone'){
-		 if(t.test(value)){
-				setNumber({
-					...number,
-					[name]: value,
-				})
-			}
-		} else {
 		setNumber({
 			...number,
 			[name]: value,
 		})
-		}	
+		
 	}
 	//form submit handling
 	const handleSubmit = (e) => {
@@ -67,7 +57,7 @@ const AddContact = ({ onSubmit }) => {
 					type='tel'
 					name='phone'
 					maxLength={10}
-					pattern='^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$'
+					pattern='[0-9]{10}'
 					placeholder='1234567890'
 					onChange={handleChange}
 					value={number.phone}
