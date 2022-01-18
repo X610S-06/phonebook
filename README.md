@@ -22,4 +22,4 @@ Install dependencies
 
 Run the website on localhost
 
-    npm start
+    npm run start
